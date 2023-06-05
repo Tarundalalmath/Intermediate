@@ -1,0 +1,11 @@
+G=GammaH(29,[1,-1,4,-4,5,-5,6,-6,7,-7,9,-9,13,-13])
+M=ModularForms(G,2,prec=100);
+S=M.cuspidal_subspace()
+A=Matrix([[(S.basis()[i])[j] for j in range(100)] for i in range(S.dimension())])
+N = ModularForms(Gamma1(29),2, prec=100);
+D=N.cuspidal_subspace()
+B=Matrix([[(D.basis()[i])[j] for j in range(100)] for i in range(D.dimension())])
+C=B.solve_left(A)
+Y.<S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22>=PolynomialRing(QQ)
+K= Matrix(22,1,[S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22])
+C*K

@@ -1,0 +1,19 @@
+G=GammaH(26,[1,-1,3,-3,9,-9])
+M=ModularForms(G,2,prec=100);
+S=M.cuspidal_subspace()
+R=PolynomialRing(QQ,'X',4)
+mons2=(sum([R.gens()[k] for k in range(4)])^2).monomials()
+mons3=(sum([R.gens()[k] for k in range(4)])^3).monomials()
+L.<q>=PowerSeriesRing(QQ,100)
+def int_qexp(f):
+    return sum([f[i]*q^i for i in range(100)])
+
+S_qexps=[int_qexp(S.basis()[i]) for i in range(4)]
+A=Matrix([[(S.basis()[i])[j] for j in range(100)] for i in range(S.dimension())])
+N = ModularForms(Gamma1(26),2, prec=100);
+D=N.cuspidal_subspace()
+B=Matrix([[(D.basis()[i])[j] for j in range(100)] for i in range(D.dimension())])
+C=B.solve_left(A)
+Y.<S1,S2,S3,S4,S5,S6,S7,S8,S9,S10>=PolynomialRing(QQ)
+K= Matrix(10,1,[S1,S2,S3,S4,S5,S6,S7,S8,S9,S10])
+C*K
